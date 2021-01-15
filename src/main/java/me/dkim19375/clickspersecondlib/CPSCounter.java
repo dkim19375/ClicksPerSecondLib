@@ -13,16 +13,15 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.*;
 
 public class CPSCounter {
-    public static ProtocolManager PM;
-    public JavaPlugin plugin;
+    public static final ProtocolManager PM = ProtocolLibrary.getProtocolManager();
+    public final JavaPlugin plugin;
     // Map<player, Entry<clicks, List<currentSystemTimesWhenClicked>>>
-    public static Map<UUID, Entry<Integer, List<Long>>> clicks = new HashMap<>();
+    public static final Map<UUID, Entry<Integer, List<Long>>> clicks = new HashMap<>();
     public static boolean listenerCreated = false;
     public static BukkitTask task;
 
     public CPSCounter(JavaPlugin plugin) {
         this.plugin = plugin;
-        PM = ProtocolLibrary.getProtocolManager();
         createPacketListener();
         if (!listenerCreated) {
             task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
